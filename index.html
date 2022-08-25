@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,34 +11,40 @@
     <script src="jquery-3.6.0.js"></script>
     <script src="main.js"></script>
 </head>
+
 <body>
-    
-    
-    <a href="javascript:void(0)" data-section="homeSection">Home</a>
 
-    <a href="javascript:void(0)" data-section="reportSection">Live Report</a>
+    <div class="parallax">
 
-    <a href="javascript:void(0)" data-section="aboutSection">About</a>
+        <div class="navBar">
+            <a href="javascript:void(0)" data-section="homeSection">Home</a>
+            <a href="javascript:void(0)" data-section="reportSection">Live Report</a>
+            <a href="javascript:void(0)" data-section="aboutSection">About</a>
 
-    <hr>
-    <!-- <label>Search Coin: </label> -->
-    <input type="search" placeholder="Search Coin"/>
-    <button id="searchBtn">Search</button>
-    <hr>
+        </div>
 
-    <section id="homeSection">1</section>
+        <div class="contentArea">
+            <!-- <hr> -->
+            <!-- <label>Search Coin: </label> -->
+            <input type="search" placeholder="Search Coin" />
+            <button id="searchBtn">Search</button>
+            <hr>
 
-    <section id="reportSection">2</section>
+            <section id="homeSection">1</section>
+            <section id="reportSection">2</section>
+            <section id="aboutSection">3</section>
 
-    <section id="aboutSection">3</section>
+        </div>
 
 
-    <div class="modalFavorite" id="favorites">
-        <h1>בחר מטבע להסרה</h1>
-        Bla Bla
+        <div class="modalFavorite" id="favorites">
+            <button id="closeFavoriteModalBtn">X</button>
+            <h1>Choose which Coin you want to remove</h1>
+            <div id="favoriteListInModal"></div>
+        </div>
+
     </div>
-    
-
 
 </body>
+
 </html>

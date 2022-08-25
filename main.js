@@ -34,21 +34,6 @@ $(() => {
         displayCoins(coins);
     });
 
-    // $("#homeSection").on("click", ".card > button", function () {
-    //     $(this).hasClass("open") ? $(this).removeClass("open").next().slideUp() : $(this).addClass("open").next().slideDown();
-    // });
-    // $("#homeSection" > "label" > "input").prop( "checked", true ,function () {
-    //     alert("Test");
-    // } );
-
-    // $('input[type="checkbox"]').change(function() {
-    //     if(this.checked) {
-    //         alert("Test");
-    //         //Do stuff
-    //     }
-    // });
- 
-    // $(".switch").prop( "checked", false );
     
     // Handle the More Info Button
     $("#homeSection").on("click", ".card > button", async function () {
@@ -71,21 +56,27 @@ $(() => {
         const id = $(this).parent().siblings("button").attr("id");
         if ($(this).is(':checked')) {
             saveFavorite(id);
-            console.log(favorites);
+            // console.log(favorites);
+        }
+        else{
+            deleteFavorite(id); 
         }
     });
+
 
     function saveFavorite(coin){
         const f = favorites.find(x => x.id === coin);
         if(!f){
             if(favorites.length >= 5){
-                alert("Modal");
+                // favorites.push(coin);
+                openModalFavorite(coin);
             }
             else{
                 favorites.push(coin);
                 localStorage.setItem("Favorites", JSON.stringify(favorites));
             }
         }
+        console.log(favorites);
     }
 
     function getFavorites(){
@@ -97,17 +88,36 @@ $(() => {
     }
 
     function deleteFavorite(id){
-        let index = favorites.findIndex(x => x.id === id);
-        favorites = favorites.slice(index, 1);
+        let index = favorites.findIndex(x => x === id);
+        favorites.splice(index, 1);
+        // console.log(favorites);
         localStorage.setItem("Favorites", JSON.stringify(favorites));
     }
 
     function openModalFavorite(coin){
-        console.log(coin);
-        $("#favorites").css("display: block");
-        //Print modal + buttens on loop on favorites
-        //on lisinter, fined index in favorites
+        $("#favorites").css("display", "block");
+        for(const f of favorites){
+            const contain = `
+            <div class="favoriteCard">
+                <p>${f}</p>
+                <label class="switch">
+                    <input type="checkbox" class="checkbox" checked>
+                    <span class="slider round"></span>
+                </label> <br>
+            </div>`;
+            $("#favoriteListInModal").append(contain);
+        }
     }
+    
+    // listen to unchecked coin in favorite modal
+    $("#favoriteListInModal").on("change", ".favoriteCard > .switch > input", function(){
+        const id = $(this).parent().prev().html();
+        deleteFavorite(id);
+        $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
+        $("#favorites").css("display", "none");
+        $("#favoriteListInModal").html("");
+        console.log(favorites);
+    });
 
     handleCoins();
     
@@ -131,7 +141,7 @@ $(() => {
 
     function createCard(coin) {
         const card = `
-                <div class="card">
+            <div class="card">
                 <label class="switch">
                     <input type="checkbox" class="checkbox">
                     <span class="slider round"></span>

@@ -1,5 +1,23 @@
-body {
+body, html {
     text-align: center;
+    height: 100%;
+}
+
+/* parallax  */
+
+  
+.parallax {
+    /* The image used */
+    background-image: url("assets/img/BG.jpg");
+  
+    /* Full height */
+    height: 100%;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .card {
@@ -88,11 +106,37 @@ input:checked+.slider:before {
 
 
 .modalFavorite{
-    position: absolute;
-    top: 35%;
+    position: fixed;
+    top: 20%;
     left: 25%;
     width: 50vw;
-    height: 30vh;
+    height: 25%;
     background-color: #2196F3;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     display: none;
+
+}
+
+.favoriteCard{
+    width: 130px;
+    height: 85px;
+    text-align: center;
+    /* border: 1px solid black; */
+    border-radius: 7px;
+    background-color: white;
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+    overflow: auto;
+}
+
+.modalFavorite > h1 {
+    color: white;
+}
+
+#closeFavoriteModalBtn{
+    position: absolute;
+    left: 20px;
+    top: 20px;
 }
