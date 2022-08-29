@@ -8,6 +8,10 @@ $(() => {
     let coinsMoreInfo = [];
     let favorites = [];
 
+    handleCoins();
+
+    // loadFavorites();
+
     //On loading page, display the home page (section).
     $("section").hide();
     $("#homeSection").show();
@@ -53,10 +57,11 @@ $(() => {
 
     //Handle Favorite Listener
     $("#homeSection").on("change", `.card > .switch > input`, function () {
-        const id = $(this).parent().siblings("button").attr("id");
+        const id = $(this).parent().siblings(".coinSymbol").attr("id");
+
+        // const id = $(this).parent().siblings("button").attr("id");
         if ($(this).is(':checked')) {
             saveFavorite(id);
-            // console.log(favorites);
         }
         else{
             deleteFavorite(id); 
@@ -65,6 +70,7 @@ $(() => {
 
 
     function saveFavorite(coin){
+
         const f = favorites.find(x => x.id === coin);
         if(!f){
             if(favorites.length >= 5){
@@ -76,12 +82,12 @@ $(() => {
                 localStorage.setItem("Favorites", JSON.stringify(favorites));
             }
         }
-        console.log(favorites);
     }
 
     function getFavorites(){
         try {
-            favorites = JSON.parse(localStorage.getItem("Favorites"));
+            const str = localStorage.getItem("Favorites");
+            favorites = str === null? [] : JSON.parse(str);
         } catch (err) {
             alert(err.message);
         }
@@ -90,7 +96,6 @@ $(() => {
     function deleteFavorite(id){
         let index = favorites.findIndex(x => x === id);
         favorites.splice(index, 1);
-        // console.log(favorites);
         localStorage.setItem("Favorites", JSON.stringify(favorites));
     }
 
@@ -107,23 +112,55 @@ $(() => {
             </div>`;
             $("#favoriteListInModal").append(contain);
         }
-    }
-    
-    // listen to unchecked coin in favorite modal
-    $("#favoriteListInModal").on("change", ".favoriteCard > .switch > input", function(){
-        const id = $(this).parent().prev().html();
-        deleteFavorite(id);
-        $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
-        $("#favorites").css("display", "none");
-        $("#favoriteListInModal").html("");
-        console.log(favorites);
-    });
 
-    handleCoins();
+        $("#closeFavoriteModalBtn").on("click", ()=>{
+            $("#favorites").css("display", "none");
+            $("#favoriteListInModal").html("");
+            $(`#${coin}`).siblings(".switch").children("input").prop("checked", false);
+        });
+            
+        // listen to unchecked coin in favorite modal
+        $("#favoriteListInModal").on("change", ".favoriteCard > .switch > input", function(){
+            const id = $(this).parent().prev().html();
+            deleteFavorite(id);
+            $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
+            // $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
+            $("#favoriteListInModal").html("");
+            $("#favorites").css("display", "none");
+            saveFavorite(coin);    
+        });
+    }
+        
+        // listen to unchecked coin in favorite modal
+    // $("#favoriteListInModal").on("change", ".favoriteCard > .switch > input", function(){
+    //     const id = $(this).parent().prev().html();
+    //     deleteFavorite(id);
+    //     $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
+    //     $("#favorites").css("display", "none");
+    //     $("#favoriteListInModal").html("");
+    //     console.log(favorites);
+    // });
+
+    
+    // function loadFavorites(){
+    //     getFavorites();
+    //     if(favorites.length > 0){
+
+    //         for(const f of favorites){
+    //             $(`#homeSection > #${f}`).siblings(".switch").children("input").prop("checked", true);
+    //         }
+    //     }
+    // }
+
+
+    // handleCoins();
     
     async function handleCoins() {
         try {
-            displayCoins(await getJSON("https://api.coingecko.com/api/v3/coins"));
+
+            coins = await getJSON("https://api.coingecko.com/api/v3/coins");
+            displayCoins(coins);
+            // coins = displayCoins(await getJSON("https://api.coingecko.com/api/v3/coins"));
         }
         catch (err) {
             alert(err.message);
@@ -137,6 +174,12 @@ $(() => {
             content += card;
         }
         $("#homeSection").html(content)
+
+        getFavorites();
+        for(const f of favorites){
+            // console.log($(`#${f}`).text());
+            $(`#${f}`).siblings(".switch").children("input").prop("checked", true);//-----------
+        }
     }
 
     function createCard(coin) {
@@ -146,7 +189,7 @@ $(() => {
                     <input type="checkbox" class="checkbox">
                     <span class="slider round"></span>
                 </label> <br>
-                <span>${coin.symbol}</span> <br>
+                <span id="${coin.symbol}" class="coinSymbol">${coin.symbol}</span> <br>
                 <span>${coin.name}</span> <br>
                 <img src="${coin.image.thumb}"/> <br>
                 <button id="${coin.id}">More Info</button>

@@ -13,29 +13,37 @@
 </head>
 
 <body>
-
     <div class="parallax">
+        <header>
 
-        <div class="navBar">
-            <a href="javascript:void(0)" data-section="homeSection">Home</a>
-            <a href="javascript:void(0)" data-section="reportSection">Live Report</a>
-            <a href="javascript:void(0)" data-section="aboutSection">About</a>
+            <div class="navBar">
+                <div class="linksNavBox">
+                    <a href="javascript:void(0)" data-section="homeSection">Home</a>
+                    <a href="javascript:void(0)" data-section="reportSection">Live Report</a>
+                    <a href="javascript:void(0)" data-section="aboutSection">About</a>
+                </div>
 
-        </div>
+                <div class="searchBox">
+                    <input type="search" placeholder="Search Coin" />
+                    <button id="searchBtn">Search</button>
+                </div>
+            </div>
+
+            <div class="titleArea">
+                <h1>Cryptonight Statistics</h1>
+            </div>
+
+        </header>
 
         <div class="contentArea">
             <!-- <hr> -->
-            <!-- <label>Search Coin: </label> -->
-            <input type="search" placeholder="Search Coin" />
-            <button id="searchBtn">Search</button>
-            <hr>
+            <!-- <hr> -->
 
             <section id="homeSection">1</section>
             <section id="reportSection">2</section>
             <section id="aboutSection">3</section>
 
         </div>
-
 
         <div class="modalFavorite" id="favorites">
             <button id="closeFavoriteModalBtn">X</button>
