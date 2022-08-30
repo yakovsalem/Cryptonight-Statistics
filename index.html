@@ -7,52 +7,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cryptonight Statistics</title>
     <!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
-    <link rel="stylesheet" href="styles.css">
     <script src="jquery-3.6.0.js"></script>
     <script src="main.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div class="parallax">
-        <header>
+        
+        <div class="navBar">
+            <div class="linksNavBox">
+                <a href="javascript:void(0)" data-section="homeSection">Home</a>
+                <a href="javascript:void(0)" data-section="reportSection">Live Report</a>
+                <a href="javascript:void(0)" data-section="aboutSection">About</a>
+            </div>
+    
+            <div class="searchBox">
+                <input type="search" placeholder="Search Coin" />
+                <button id="searchBtn">Search</button>
+            </div>
+        </div>
+        
+            <header>
+                <img src="assets/img/BG.jpg" class="background">
+                <img src="assets/img/BGLayerA.png" class="foreground1">
+                <img src="assets/img/BGLayerB.png" class="foreground2">
 
-            <div class="navBar">
-                <div class="linksNavBox">
-                    <a href="javascript:void(0)" data-section="homeSection">Home</a>
-                    <a href="javascript:void(0)" data-section="reportSection">Live Report</a>
-                    <a href="javascript:void(0)" data-section="aboutSection">About</a>
+
+                <div class="titleArea">
+                    <h1>Cryptonight <br/> Statistics</h1>
                 </div>
 
-                <div class="searchBox">
-                    <input type="search" placeholder="Search Coin" />
-                    <button id="searchBtn">Search</button>
-                </div>
+            </header>
+
+            <div class="contentArea">
+                <section id="homeSection"></section>
+                <section id="reportSection"></section>
+                <section id="aboutSection"></section>
             </div>
-
-            <div class="titleArea">
-                <h1>Cryptonight Statistics</h1>
+            
+            <div class="modalFavorite" id="favorites">
+                <button id="closeFavoriteModalBtn">X</button>
+                <h1>Choose which Coin you want to remove</h1>
+                <div id="favoriteListInModal"></div>
             </div>
-
-        </header>
-
-        <div class="contentArea">
-            <!-- <hr> -->
-            <!-- <hr> -->
-
-            <section id="homeSection">1</section>
-            <section id="reportSection">2</section>
-            <section id="aboutSection">3</section>
-
         </div>
-
-        <div class="modalFavorite" id="favorites">
-            <button id="closeFavoriteModalBtn">X</button>
-            <h1>Choose which Coin you want to remove</h1>
-            <div id="favoriteListInModal"></div>
-        </div>
-
-    </div>
-
+            
 </body>
 
 </html>

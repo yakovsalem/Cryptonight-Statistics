@@ -113,7 +113,8 @@ $(() => {
             $("#favoriteListInModal").append(contain);
         }
 
-        $("#closeFavoriteModalBtn").on("click", ()=>{
+        //need to fix
+        $("#closeFavoriteModalBtn").on("click", ()=>{ // bug
             $("#favorites").css("display", "none");
             $("#favoriteListInModal").html("");
             $(`#${coin}`).siblings(".switch").children("input").prop("checked", false);
@@ -130,30 +131,7 @@ $(() => {
             saveFavorite(coin);    
         });
     }
-        
-        // listen to unchecked coin in favorite modal
-    // $("#favoriteListInModal").on("change", ".favoriteCard > .switch > input", function(){
-    //     const id = $(this).parent().prev().html();
-    //     deleteFavorite(id);
-    //     $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
-    //     $("#favorites").css("display", "none");
-    //     $("#favoriteListInModal").html("");
-    //     console.log(favorites);
-    // });
 
-    
-    // function loadFavorites(){
-    //     getFavorites();
-    //     if(favorites.length > 0){
-
-    //         for(const f of favorites){
-    //             $(`#homeSection > #${f}`).siblings(".switch").children("input").prop("checked", true);
-    //         }
-    //     }
-    // }
-
-
-    // handleCoins();
     
     async function handleCoins() {
         try {
