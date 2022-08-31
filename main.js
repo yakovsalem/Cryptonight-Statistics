@@ -100,7 +100,8 @@ $(() => {
     }
 
     function openModalFavorite(coin){
-        $("#favorites").css("display", "block");
+        $(".modal").css("display", "block");
+        // $("#favorites").css("display", "block");
         for(const f of favorites){
             const contain = `
             <div class="favoriteCard">
@@ -115,7 +116,8 @@ $(() => {
 
         // listener to close button in favorite modal (Cancel)
         $("#closeFavoriteModalBtn").on("click", ()=>{
-            $("#favorites").css("display", "none");
+            // $("#favorites").css("display", "none");
+            $(".modal").css("display", "none");
             $("#favoriteListInModal").html("");
             $(`#${coin}`).siblings(".switch").children("input").prop("checked", false);
             $( "#favoriteListInModal" ).unbind("change");// kill event listener - unchecked coin in favorite modal
@@ -128,7 +130,7 @@ $(() => {
             $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
             // $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
             $("#favoriteListInModal").html("");
-            $("#favorites").css("display", "none");
+            $(".modal").css("display", "none");
             saveFavorite(coin);   
             $( "#closeFavoriteModalBtn" ).unbind("click");// kill event listener 
         });
@@ -170,7 +172,7 @@ $(() => {
                     <span class="slider round"></span>
                 </label> <br>
                 <span id="${coin.symbol}" class="coinSymbol">${coin.symbol}</span> <br>
-                <span>${coin.name}</span> <br>
+                <span class="coinName">${coin.name}</span> <br>
                 <img src="${coin.image.thumb}"/> <br>
                 <button id="${coin.id}">More Info</button>
                 <span class="moreInfoArea"></span>
