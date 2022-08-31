@@ -113,14 +113,15 @@ $(() => {
             $("#favoriteListInModal").append(contain);
         }
 
-        //need to fix
-        $("#closeFavoriteModalBtn").on("click", ()=>{ // bug
+        // listener to close button in favorite modal (Cancel)
+        $("#closeFavoriteModalBtn").on("click", ()=>{
             $("#favorites").css("display", "none");
             $("#favoriteListInModal").html("");
             $(`#${coin}`).siblings(".switch").children("input").prop("checked", false);
+            $( "#favoriteListInModal" ).unbind("change");// kill event listener - unchecked coin in favorite modal
         });
             
-        // listen to unchecked coin in favorite modal
+        // listener to unchecked coin in favorite modal
         $("#favoriteListInModal").on("change", ".favoriteCard > .switch > input", function(){
             const id = $(this).parent().prev().html();
             deleteFavorite(id);
@@ -128,7 +129,8 @@ $(() => {
             // $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
             $("#favoriteListInModal").html("");
             $("#favorites").css("display", "none");
-            saveFavorite(coin);    
+            saveFavorite(coin);   
+            $( "#closeFavoriteModalBtn" ).unbind("click");// kill event listener 
         });
     }
 
