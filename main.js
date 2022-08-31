@@ -23,13 +23,19 @@ $(() => {
         $("#" + dataSection).show();
     });
 
+    //--------------------------------------------------need work
     //Search coins in the home page.
     $("#searchBtn").on("click", function () {
         const textToSearch = $(this).prev().val().toLowerCase();
 
+        const notFound = "Search Not Found!";
+
         const filteredCoins = coins.filter(coin => coin.symbol.indexOf(textToSearch) >= 0); // ??
         if (filteredCoins.length > 0) {
             displayCoins(filteredCoins);
+        }
+        else {
+
         }
     });
 
