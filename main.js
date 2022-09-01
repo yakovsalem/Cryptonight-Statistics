@@ -10,8 +10,6 @@ $(() => {
 
     handleCoins();
 
-    // loadFavorites();
-
     //On loading page, display the home page (section).
     $("section").hide();
     $("#homeSection").show();
@@ -24,7 +22,7 @@ $(() => {
     });
 
     //--------------------------------------------------need work
-    //Search coins in the home page.
+    // Search coins in the home page.
     $("#searchBtn").on("click", function () {
         const textToSearch = $(this).prev().val().toLowerCase();
 
@@ -39,7 +37,7 @@ $(() => {
         }
     });
 
-    //Clear Search on click the X in the input & Display all coins.
+    // Clear Search on click the X in the input & Display all coins.
     $("input[type=search]").on("search", function () {
         displayCoins(coins);
     });
@@ -53,15 +51,15 @@ $(() => {
         const coinId = $(this).attr("id");
         const coin = coinsMoreInfo.find(obj => obj.id === coinId) ? readMoreInfo(coinId) : await createMoreInfo(coinId);
         const content = `
+            <h3>Current Price: </h3>
             $ ${coin.usd} <br>
             € ${coin.eur} <br>
-            $ ${coin.ils}`;
+            ₪ ${coin.ils}`;
         $(this).next().html(content);
 
     });
     
-
-    //Handle Favorite Listener
+    // Handle Favorite Listener
     $("#homeSection").on("change", `.card > .switch > input`, function () {
         const id = $(this).parent().siblings(".coinSymbol").attr("id");
 
@@ -75,12 +73,12 @@ $(() => {
     });
 
 
+    // Add Favorite coin to favorites
     function saveFavorite(coin){
-
+        
         const f = favorites.find(x => x.id === coin);
         if(!f){
             if(favorites.length >= 5){
-                // favorites.push(coin);
                 openModalFavorite(coin);
             }
             else{
@@ -89,7 +87,8 @@ $(() => {
             }
         }
     }
-
+    
+    // Read Favorites from local storage
     function getFavorites(){
         try {
             const str = localStorage.getItem("Favorites");
@@ -98,16 +97,17 @@ $(() => {
             alert(err.message);
         }
     }
-
+    
+    // Delete Favorite from Array & local storage
     function deleteFavorite(id){
         let index = favorites.findIndex(x => x === id);
         favorites.splice(index, 1);
         localStorage.setItem("Favorites", JSON.stringify(favorites));
     }
-
+    
+    // Handle Favorites Modal
     function openModalFavorite(coin){
         $(".modal").css("display", "block");
-        // $("#favorites").css("display", "block");
         for(const f of favorites){
             const contain = `
             <div class="favoriteCard">
@@ -122,11 +122,10 @@ $(() => {
 
         // listener to close button in favorite modal (Cancel)
         $("#closeFavoriteModalBtn").on("click", ()=>{
-            // $("#favorites").css("display", "none");
             $(".modal").css("display", "none");
             $("#favoriteListInModal").html("");
             $(`#${coin}`).siblings(".switch").children("input").prop("checked", false);
-            $( "#favoriteListInModal" ).unbind("change");// kill event listener - unchecked coin in favorite modal
+            $( "#favoriteListInModal" ).unbind("change"); // kill event listener - unchecked coin in favorite modal
         });
             
         // listener to unchecked coin in favorite modal
@@ -134,27 +133,27 @@ $(() => {
             const id = $(this).parent().prev().html();
             deleteFavorite(id);
             $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
-            // $(`#${id}`).siblings(".switch").children("input").prop("checked", false);
             $("#favoriteListInModal").html("");
             $(".modal").css("display", "none");
             saveFavorite(coin);   
-            $( "#closeFavoriteModalBtn" ).unbind("click");// kill event listener 
+            $( "#closeFavoriteModalBtn" ).unbind("click"); // kill event listener 
         });
     }
 
-    
+
+
+    // Handle all Coins - Get, Create, Print on screen
     async function handleCoins() {
         try {
-
             coins = await getJSON("https://api.coingecko.com/api/v3/coins");
             displayCoins(coins);
-            // coins = displayCoins(await getJSON("https://api.coingecko.com/api/v3/coins"));
         }
         catch (err) {
             alert(err.message);
         }
     }
 
+    // Print cards coins on page
     function displayCoins(coins) {
         let content = "";
         for (const coin of coins) {
@@ -170,6 +169,7 @@ $(() => {
         }
     }
 
+    // Create Card coin from coins list 
     function createCard(coin) {
         const card = `
             <div class="card">
@@ -187,11 +187,13 @@ $(() => {
         return card;
     }
 
+    // Get More info for coin from server 
     async function getMoreInfo(coinId) {
         const coin = await getJSON("https://api.coingecko.com/api/v3/coins/" + coinId);
         return coin;
     }
 
+    // Create More info data from JSON 
     async function createMoreInfo(coinId){
         const coin = await getMoreInfo(coinId);
         const coinMoreInfo = {
@@ -206,13 +208,16 @@ $(() => {
         
         return coinMoreInfo;
     }
+
+    // Clear coin data on Local Storage after 2 minutes  
     function setClearLocalStorageTimer(coinId){
         setTimeout(() => {
             deleteMoreInfo(coinId);
             console.log(coinsMoreInfo);
         }, 120000);
     }
-    
+
+    // Save more info in Local storage 
     function saveInStorage(coinsMoreInfo){
         localStorage.setItem("moreInfoCoins", JSON.stringify(coinsMoreInfo));
         setClearLocalStorageTimer(coinsMoreInfo.id);
