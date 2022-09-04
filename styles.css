@@ -153,7 +153,7 @@ header {
 
 .card:hover{
     box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.95);
 
 }
 
@@ -404,4 +404,16 @@ input:checked+.slider:before {
     font-size: 1.3vw;
     line-height: 1.7vw;
     font-weight: 300;
+}
+
+/* --- Live Report --- */
+
+.liveReport{
+    padding: 50px;
+    display: block;
+    margin: auto;
+    width: 120vh;
+    background-color: white;
+    height: max-content;
+    border-radius: 20px;
 }
