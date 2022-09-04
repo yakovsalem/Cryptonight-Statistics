@@ -27,7 +27,6 @@ header {
 
 .background {
     transform: translateZ(-20px) scale(2);
-    /* box-shadow: 0px 100px 200px #2196F3; */
 }
 
 .foreground1{
@@ -53,7 +52,6 @@ header {
     background-color: rgba(0, 0, 0, 0.95);
     font-size: 25px;
     width: 100vw;
-    /* height: max-content; */
     height: 4.2vh;
     top: 0px;
     position: sticky; 
@@ -119,7 +117,6 @@ header {
     text-shadow: 1px 1px 10px rgb(21, 179, 255);
     text-align: left;
     font-size: 3vw;
-    /* font-size: 3rem; */
     color: white;
     margin-left: 10vw;
     transform: translateZ(-5px) scale(1.5);
@@ -133,11 +130,15 @@ header {
     border: 1px solid rgba(21, 179, 255, 0.5);
 }
 
+.searchNotFound{
+    color: white;
+    font-size: 3rem;
+    font-weight: 300;
+}
 
 /* --- Cards --- */
 .card {
     width: 260px;
-    /* min-height: 100px; */
     background-color: white;
     color: black;
     display: inline-block;
@@ -152,8 +153,10 @@ header {
 
 .card:hover{
     box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
-    background-color: rgb(233, 245, 255);
+    background-color: rgba(255, 255, 255, 0.8);
+
 }
+
 
 .card > img {
     position: absolute;
@@ -161,8 +164,6 @@ header {
     right: 30px;
     width: 40px;
     height: 40px;
-    
-
 }
 
 .card > button {
@@ -171,7 +172,6 @@ header {
     right: 30px;
     padding: 5px 12px;
     height: 40px;
-    /* width: 70px; */
 
     border-radius: 5px;
     border: 1px solid white;
@@ -275,8 +275,22 @@ input:checked+.slider:before {
 }
 
 /* --- Modal Favorite --- */
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+
 .modalFavorite{
-    /* display: none; */
     position: fixed;
     top: 20%;
     left: 25%;
@@ -329,18 +343,6 @@ input:checked+.slider:before {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.modal{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-}
 
 /* --- Report Page --- */
 
@@ -388,18 +390,18 @@ input:checked+.slider:before {
 }
 
 .aboutMe > h2{
-    font-size: 6rem;
+    font-size: 5vw;
     font-weight: lighter;
     margin: 20px 0px;
 }
 
 .aboutMe > h3{
-    font-size: 2.5rem;
+    font-size: 2.5vw;
     font-weight: lighter;
 }
 
 .aboutMe > span{
-    font-size: 1.3rem;
-    line-height: 2rem;
+    font-size: 1.3vw;
+    line-height: 1.7vw;
     font-weight: 300;
 }

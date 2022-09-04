@@ -21,19 +21,21 @@ $(() => {
         $("#" + dataSection).show();
     });
 
-    //--------------------------------------------------need work
     // Search coins in the home page.
     $("#searchBtn").on("click", function () {
         const textToSearch = $(this).prev().val().toLowerCase();
 
-        const notFound = "Search Not Found!";
+        const notFound = `<div class="searchNotFound">
+                    Your search - "${textToSearch}" -<br/>
+                    did not match any coin...
+            </div>`;
 
-        const filteredCoins = coins.filter(coin => coin.symbol.indexOf(textToSearch) >= 0); // ??
+        const filteredCoins = coins.filter(coin => coin.symbol.indexOf(textToSearch) >= 0);
         if (filteredCoins.length > 0) {
             displayCoins(filteredCoins);
         }
         else {
-
+            $("#homeSection").html(notFound);
         }
     });
 
@@ -62,8 +64,6 @@ $(() => {
     // Handle Favorite Listener
     $("#homeSection").on("change", `.card > .switch > input`, function () {
         const id = $(this).parent().siblings(".coinSymbol").attr("id");
-
-        // const id = $(this).parent().siblings("button").attr("id");
         if ($(this).is(':checked')) {
             saveFavorite(id);
         }
@@ -164,8 +164,7 @@ $(() => {
 
         getFavorites();
         for(const f of favorites){
-            // console.log($(`#${f}`).text());
-            $(`#${f}`).siblings(".switch").children("input").prop("checked", true);//-----------
+            $(`#${f}`).siblings(".switch").children("input").prop("checked", true);
         }
     }
 
@@ -209,7 +208,7 @@ $(() => {
         return coinMoreInfo;
     }
 
-    // Clear coin data on Local Storage after 2 minutes  
+    // Clear coin data (More Info) on Local Storage after 2 minutes  
     function setClearLocalStorageTimer(coinId){
         setTimeout(() => {
             deleteMoreInfo(coinId);
@@ -223,6 +222,7 @@ $(() => {
         setClearLocalStorageTimer(coinsMoreInfo.id);
     }
 
+    // Read more info by id 
     function readMoreInfo(coinId){
         return coinsMoreInfo.find(obj => obj.id === coinId);
     }
